@@ -30,3 +30,19 @@ TEST_F(BassballFixture, ReturnSolveResultIfMatcheNumber) {
     EXPECT_EQ(3, result.strikes);
     EXPECT_EQ(0,result.balls);
 }
+
+TEST_F(BassballFixture, ReturnSolveResultIfMatcheNumberTwoStrike) {
+    GuessResult result = game.guess("124");
+
+    EXPECT_FALSE(result.solved);
+    EXPECT_EQ(2, result.strikes);
+    EXPECT_EQ(0, result.balls);
+}
+
+TEST_F(BassballFixture, ReturnSolveResultIfMatcheNumberOneStrikeTwoBall) {
+    GuessResult result = game.guess("132");
+
+    EXPECT_FALSE(result.solved);
+    EXPECT_EQ(1, result.strikes);
+    EXPECT_EQ(2, result.balls);
+}

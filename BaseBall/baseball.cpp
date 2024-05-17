@@ -20,11 +20,23 @@ public:
 	GuessResult guess(const string& guessNumber)
 	{
 		assertIllegalArgument(guessNumber);
-		if (guessNumber == question)
+
+		if (guessNumber == question) return { true, 3, 0 };
+
+		GuessResult result = { 0 };
+		int questionPos = 0;
+		for (auto& num : guessNumber)
 		{
-			return { true, 3, 0 };
+			int pos = question.find(num);
+			if (pos == -1) continue;
+			if (pos == questionPos) result.strikes++;
+			else result.balls++;
+			questionPos++;
 		}
-		return { false, 0, 0 };
+
+		result.solved = result.strikes == 3 ? true : false;
+
+		return result;
 	}
 
 	void assertIllegalArgument(const std::string& guessNumber)
